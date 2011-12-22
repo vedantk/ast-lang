@@ -1,0 +1,868 @@
+ast-lang ➤ make ReallocVerifier.test                                                                            git:master*
+clang -cc1 -load ./ReallocVerifier.so -plugin realloc-verifier \
+	-resource-dir /usr/bin/../lib/clang/3.0 -fmodule-cache-path /var/tmp/clang-module-cache -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/clang/3.0/include -internal-externc-isystem /usr/include -ferror-limit 19 -fmessage-length 76 -fgnu-runtime /home/vk/projects/misc-c++/static-analysis/test/mem-corrupt.c
+Decl: Record -> __va_list_tag
+Decl: Typedef -> __va_list_tag
+Decl: Typedef -> __builtin_va_list
+Decl: Typedef -> ptrdiff_t
+Decl: Typedef -> size_t
+Decl: Typedef -> wchar_t
+Decl: Typedef -> __u_char
+Decl: Typedef -> __u_short
+Decl: Typedef -> __u_int
+Decl: Typedef -> __u_long
+Decl: Typedef -> __int8_t
+Decl: Typedef -> __uint8_t
+Decl: Typedef -> __int16_t
+Decl: Typedef -> __uint16_t
+Decl: Typedef -> __int32_t
+Decl: Typedef -> __uint32_t
+Decl: Typedef -> __int64_t
+Decl: Typedef -> __uint64_t
+Decl: Typedef -> __quad_t
+Decl: Typedef -> __u_quad_t
+Decl: Typedef -> __dev_t
+Decl: Typedef -> __uid_t
+Decl: Typedef -> __gid_t
+Decl: Typedef -> __ino_t
+Decl: Typedef -> __ino64_t
+Decl: Typedef -> __mode_t
+Decl: Typedef -> __nlink_t
+Decl: Typedef -> __off_t
+Decl: Typedef -> __off64_t
+Decl: Typedef -> __pid_t
+Decl: Record -> 
+Decl: Typedef -> __fsid_t
+Decl: Typedef -> __clock_t
+Decl: Typedef -> __rlim_t
+Decl: Typedef -> __rlim64_t
+Decl: Typedef -> __id_t
+Decl: Typedef -> __time_t
+Decl: Typedef -> __useconds_t
+Decl: Typedef -> __suseconds_t
+Decl: Typedef -> __daddr_t
+Decl: Typedef -> __swblk_t
+Decl: Typedef -> __key_t
+Decl: Typedef -> __clockid_t
+Decl: Typedef -> __timer_t
+Decl: Typedef -> __blksize_t
+Decl: Typedef -> __blkcnt_t
+Decl: Typedef -> __blkcnt64_t
+Decl: Typedef -> __fsblkcnt_t
+Decl: Typedef -> __fsblkcnt64_t
+Decl: Typedef -> __fsfilcnt_t
+Decl: Typedef -> __fsfilcnt64_t
+Decl: Typedef -> __ssize_t
+Decl: Typedef -> __loff_t
+Decl: Typedef -> __qaddr_t
+Decl: Typedef -> __caddr_t
+Decl: Typedef -> __intptr_t
+Decl: Typedef -> __socklen_t
+Decl: Record -> _IO_FILE
+Decl: Typedef -> FILE
+Decl: Typedef -> __FILE
+Decl: Record -> 
+Decl: Typedef -> __mbstate_t
+Decl: Record -> 
+Decl: Typedef -> _G_fpos_t
+Decl: Record -> 
+Decl: Typedef -> _G_fpos64_t
+Decl: Typedef -> _G_int16_t
+Decl: Typedef -> _G_int32_t
+Decl: Typedef -> _G_uint16_t
+Decl: Typedef -> _G_uint32_t
+Decl: Typedef -> va_list
+Decl: Typedef -> __gnuc_va_list
+Decl: Record -> _IO_jump_t
+Decl: Record -> _IO_FILE
+Decl: Typedef -> _IO_lock_t
+Decl: Record -> _IO_marker
+Decl: Enum -> __codecvt_result
+Decl: Record -> _IO_FILE
+Decl: Typedef -> _IO_FILE
+Decl: Record -> _IO_FILE_plus
+Decl: Var -> _IO_2_1_stdin_
+Decl: Var -> _IO_2_1_stdout_
+Decl: Var -> _IO_2_1_stderr_
+Decl: Typedef -> __io_read_fn
+Decl: Typedef -> __io_write_fn
+Decl: Typedef -> __io_seek_fn
+Decl: Typedef -> __io_close_fn
+Decl: Function -> __underflow
+Got func decl..
+Decl: Function -> __uflow
+Got func decl..
+Decl: Function -> __overflow
+Got func decl..
+Decl: Function -> _IO_getc
+Got func decl..
+Decl: Function -> _IO_putc
+Got func decl..
+Decl: Function -> _IO_feof
+Got func decl..
+Decl: Function -> _IO_ferror
+Got func decl..
+Decl: Function -> _IO_peekc_locked
+Got func decl..
+Decl: Function -> _IO_flockfile
+Got func decl..
+Decl: Function -> _IO_funlockfile
+Got func decl..
+Decl: Function -> _IO_ftrylockfile
+Got func decl..
+Decl: Function -> _IO_vfscanf
+Got func decl..
+Decl: Function -> _IO_vfprintf
+Got func decl..
+Decl: Function -> _IO_padn
+Got func decl..
+Decl: Function -> _IO_sgetn
+Got func decl..
+Decl: Function -> _IO_seekoff
+Got func decl..
+Decl: Function -> _IO_seekpos
+Got func decl..
+Decl: Function -> _IO_free_backup_area
+Got func decl..
+Decl: Typedef -> va_list
+Decl: Typedef -> off_t
+Decl: Typedef -> ssize_t
+Decl: Typedef -> fpos_t
+Decl: Var -> stdin
+Decl: Var -> stdout
+Decl: Var -> stderr
+Decl: Function -> remove
+Got func decl..
+Decl: Function -> rename
+Got func decl..
+Decl: Function -> renameat
+Got func decl..
+Decl: Function -> tmpfile
+Got func decl..
+Decl: Function -> tmpnam
+Got func decl..
+Decl: Function -> tmpnam_r
+Got func decl..
+Decl: Function -> tempnam
+Got func decl..
+Decl: Function -> fclose
+Got func decl..
+Decl: Function -> fflush
+Got func decl..
+Decl: Function -> fflush_unlocked
+Got func decl..
+Decl: Function -> fopen
+Got func decl..
+Decl: Function -> freopen
+Got func decl..
+Decl: Function -> fdopen
+Got func decl..
+Decl: Function -> fmemopen
+Got func decl..
+Decl: Function -> open_memstream
+Got func decl..
+Decl: Function -> setbuf
+Got func decl..
+Decl: Function -> setvbuf
+Got func decl..
+Decl: Function -> setbuffer
+Got func decl..
+Decl: Function -> setlinebuf
+Got func decl..
+Decl: Function -> fprintf
+Got func decl..
+Decl: Function -> printf
+Got func decl..
+Decl: Function -> sprintf
+Got func decl..
+Decl: Function -> vfprintf
+Got func decl..
+Decl: Function -> vprintf
+Got func decl..
+Decl: Function -> vsprintf
+Got func decl..
+Decl: Function -> snprintf
+Got func decl..
+Decl: Function -> vsnprintf
+Got func decl..
+Decl: Function -> vdprintf
+Got func decl..
+Decl: Function -> dprintf
+Got func decl..
+Decl: Function -> fscanf
+Got func decl..
+Decl: Function -> scanf
+Got func decl..
+Decl: Function -> sscanf
+Got func decl..
+Decl: Function -> fscanf
+Got func decl..
+Decl: Function -> scanf
+Got func decl..
+Decl: Function -> sscanf
+Got func decl..
+Decl: Function -> vfscanf
+Got func decl..
+Decl: Function -> vscanf
+Got func decl..
+Decl: Function -> vsscanf
+Got func decl..
+Decl: Function -> vfscanf
+Got func decl..
+Decl: Function -> vscanf
+Got func decl..
+Decl: Function -> vsscanf
+Got func decl..
+Decl: Function -> fgetc
+Got func decl..
+Decl: Function -> getc
+Got func decl..
+Decl: Function -> getchar
+Got func decl..
+Decl: Function -> getc_unlocked
+Got func decl..
+Decl: Function -> getchar_unlocked
+Got func decl..
+Decl: Function -> fgetc_unlocked
+Got func decl..
+Decl: Function -> fputc
+Got func decl..
+Decl: Function -> putc
+Got func decl..
+Decl: Function -> putchar
+Got func decl..
+Decl: Function -> fputc_unlocked
+Got func decl..
+Decl: Function -> putc_unlocked
+Got func decl..
+Decl: Function -> putchar_unlocked
+Got func decl..
+Decl: Function -> getw
+Got func decl..
+Decl: Function -> putw
+Got func decl..
+Decl: Function -> fgets
+Got func decl..
+Decl: Function -> gets
+Got func decl..
+Decl: Function -> __getdelim
+Got func decl..
+Decl: Function -> getdelim
+Got func decl..
+Decl: Function -> getline
+Got func decl..
+Decl: Function -> fputs
+Got func decl..
+Decl: Function -> puts
+Got func decl..
+Decl: Function -> ungetc
+Got func decl..
+Decl: Function -> fread
+Got func decl..
+Decl: Function -> fwrite
+Got func decl..
+Decl: Function -> fread_unlocked
+Got func decl..
+Decl: Function -> fwrite_unlocked
+Got func decl..
+Decl: Function -> fseek
+Got func decl..
+Decl: Function -> ftell
+Got func decl..
+Decl: Function -> rewind
+Got func decl..
+Decl: Function -> fseeko
+Got func decl..
+Decl: Function -> ftello
+Got func decl..
+Decl: Function -> fgetpos
+Got func decl..
+Decl: Function -> fsetpos
+Got func decl..
+Decl: Function -> clearerr
+Got func decl..
+Decl: Function -> feof
+Got func decl..
+Decl: Function -> ferror
+Got func decl..
+Decl: Function -> clearerr_unlocked
+Got func decl..
+Decl: Function -> feof_unlocked
+Got func decl..
+Decl: Function -> ferror_unlocked
+Got func decl..
+Decl: Function -> perror
+Got func decl..
+Decl: Var -> sys_nerr
+Decl: Var -> sys_errlist
+Decl: Function -> fileno
+Got func decl..
+Decl: Function -> fileno_unlocked
+Got func decl..
+Decl: Function -> popen
+Got func decl..
+Decl: Function -> pclose
+Got func decl..
+Decl: Function -> ctermid
+Got func decl..
+Decl: Function -> flockfile
+Got func decl..
+Decl: Function -> ftrylockfile
+Got func decl..
+Decl: Function -> funlockfile
+Got func decl..
+Decl: Record -> wait
+Decl: Record -> 
+Decl: Typedef -> __WAIT_STATUS
+Decl: Record -> 
+Decl: Typedef -> div_t
+Decl: Record -> 
+Decl: Typedef -> ldiv_t
+Decl: Record -> 
+Decl: Typedef -> lldiv_t
+Decl: Function -> __ctype_get_mb_cur_max
+Got func decl..
+Decl: Function -> atof
+Got func decl..
+Decl: Function -> atoi
+Got func decl..
+Decl: Function -> atol
+Got func decl..
+Decl: Function -> atoll
+Got func decl..
+Decl: Function -> strtod
+Got func decl..
+Decl: Function -> strtof
+Got func decl..
+Decl: Function -> strtold
+Got func decl..
+Decl: Function -> strtol
+Got func decl..
+Decl: Function -> strtoul
+Got func decl..
+Decl: Function -> strtoq
+Got func decl..
+Decl: Function -> strtouq
+Got func decl..
+Decl: Function -> strtoll
+Got func decl..
+Decl: Function -> strtoull
+Got func decl..
+Decl: Function -> l64a
+Got func decl..
+Decl: Function -> a64l
+Got func decl..
+Decl: Typedef -> u_char
+Decl: Typedef -> u_short
+Decl: Typedef -> u_int
+Decl: Typedef -> u_long
+Decl: Typedef -> quad_t
+Decl: Typedef -> u_quad_t
+Decl: Typedef -> fsid_t
+Decl: Typedef -> loff_t
+Decl: Typedef -> ino_t
+Decl: Typedef -> dev_t
+Decl: Typedef -> gid_t
+Decl: Typedef -> mode_t
+Decl: Typedef -> nlink_t
+Decl: Typedef -> uid_t
+Decl: Typedef -> pid_t
+Decl: Typedef -> id_t
+Decl: Typedef -> daddr_t
+Decl: Typedef -> caddr_t
+Decl: Typedef -> key_t
+Decl: Typedef -> clock_t
+Decl: Typedef -> time_t
+Decl: Typedef -> clockid_t
+Decl: Typedef -> timer_t
+Decl: Typedef -> ulong
+Decl: Typedef -> ushort
+Decl: Typedef -> uint
+Decl: Typedef -> int8_t
+Decl: Typedef -> int16_t
+Decl: Typedef -> int32_t
+Decl: Typedef -> int64_t
+Decl: Typedef -> u_int8_t
+Decl: Typedef -> u_int16_t
+Decl: Typedef -> u_int32_t
+Decl: Typedef -> u_int64_t
+Decl: Typedef -> register_t
+Decl: Typedef -> __sig_atomic_t
+Decl: Record -> 
+Decl: Typedef -> __sigset_t
+Decl: Typedef -> sigset_t
+Decl: Record -> timespec
+Decl: Record -> timeval
+Decl: Typedef -> suseconds_t
+Decl: Typedef -> __fd_mask
+Decl: Record -> 
+Decl: Typedef -> fd_set
+Decl: Typedef -> fd_mask
+Decl: Function -> select
+Got func decl..
+Decl: Function -> pselect
+Got func decl..
+Decl: Function -> gnu_dev_major
+Got func decl..
+Decl: Function -> gnu_dev_minor
+Got func decl..
+Decl: Function -> gnu_dev_makedev
+Got func decl..
+Decl: Typedef -> blksize_t
+Decl: Typedef -> blkcnt_t
+Decl: Typedef -> fsblkcnt_t
+Decl: Typedef -> fsfilcnt_t
+Decl: Typedef -> pthread_t
+Decl: Record -> 
+Decl: Typedef -> pthread_attr_t
+Decl: Record -> __pthread_internal_list
+Decl: Typedef -> __pthread_list_t
+Decl: Record -> 
+Decl: Typedef -> pthread_mutex_t
+Decl: Record -> 
+Decl: Typedef -> pthread_mutexattr_t
+Decl: Record -> 
+Decl: Typedef -> pthread_cond_t
+Decl: Record -> 
+Decl: Typedef -> pthread_condattr_t
+Decl: Typedef -> pthread_key_t
+Decl: Typedef -> pthread_once_t
+Decl: Record -> 
+Decl: Typedef -> pthread_rwlock_t
+Decl: Record -> 
+Decl: Typedef -> pthread_rwlockattr_t
+Decl: Typedef -> pthread_spinlock_t
+Decl: Record -> 
+Decl: Typedef -> pthread_barrier_t
+Decl: Record -> 
+Decl: Typedef -> pthread_barrierattr_t
+Decl: Function -> random
+Got func decl..
+Decl: Function -> srandom
+Got func decl..
+Decl: Function -> initstate
+Got func decl..
+Decl: Function -> setstate
+Got func decl..
+Decl: Record -> random_data
+Decl: Function -> random_r
+Got func decl..
+Decl: Function -> srandom_r
+Got func decl..
+Decl: Function -> initstate_r
+Got func decl..
+Decl: Function -> setstate_r
+Got func decl..
+Decl: Function -> rand
+Got func decl..
+Decl: Function -> srand
+Got func decl..
+Decl: Function -> rand_r
+Got func decl..
+Decl: Function -> drand48
+Got func decl..
+Decl: Function -> erand48
+Got func decl..
+Decl: Function -> lrand48
+Got func decl..
+Decl: Function -> nrand48
+Got func decl..
+Decl: Function -> mrand48
+Got func decl..
+Decl: Function -> jrand48
+Got func decl..
+Decl: Function -> srand48
+Got func decl..
+Decl: Function -> seed48
+Got func decl..
+Decl: Function -> lcong48
+Got func decl..
+Decl: Record -> drand48_data
+Decl: Function -> drand48_r
+Got func decl..
+Decl: Function -> erand48_r
+Got func decl..
+Decl: Function -> lrand48_r
+Got func decl..
+Decl: Function -> nrand48_r
+Got func decl..
+Decl: Function -> mrand48_r
+Got func decl..
+Decl: Function -> jrand48_r
+Got func decl..
+Decl: Function -> srand48_r
+Got func decl..
+Decl: Function -> seed48_r
+Got func decl..
+Decl: Function -> lcong48_r
+Got func decl..
+Decl: Function -> malloc
+Got func decl..
+Decl: Function -> calloc
+Got func decl..
+Decl: Function -> realloc
+Got func decl..
+Decl: Function -> free
+Got func decl..
+Decl: Function -> cfree
+Got func decl..
+Decl: Function -> alloca
+Got func decl..
+Decl: Function -> valloc
+Got func decl..
+Decl: Function -> posix_memalign
+Got func decl..
+Decl: Function -> abort
+Got func decl..
+Decl: Function -> atexit
+Got func decl..
+Decl: Function -> on_exit
+Got func decl..
+Decl: Function -> exit
+Got func decl..
+Decl: Function -> _Exit
+Got func decl..
+Decl: Function -> getenv
+Got func decl..
+Decl: Function -> __secure_getenv
+Got func decl..
+Decl: Function -> putenv
+Got func decl..
+Decl: Function -> setenv
+Got func decl..
+Decl: Function -> unsetenv
+Got func decl..
+Decl: Function -> clearenv
+Got func decl..
+Decl: Function -> mktemp
+Got func decl..
+Decl: Function -> mkstemp
+Got func decl..
+Decl: Function -> mkstemps
+Got func decl..
+Decl: Function -> mkdtemp
+Got func decl..
+Decl: Function -> system
+Got func decl..
+Decl: Function -> realpath
+Got func decl..
+Decl: Typedef -> __compar_fn_t
+Decl: Function -> bsearch
+Got func decl..
+Decl: Function -> qsort
+Got func decl..
+Decl: Function -> abs
+Got func decl..
+Decl: Function -> labs
+Got func decl..
+Decl: Function -> llabs
+Got func decl..
+Decl: Function -> div
+Got func decl..
+Decl: Function -> ldiv
+Got func decl..
+Decl: Function -> lldiv
+Got func decl..
+Decl: Function -> ecvt
+Got func decl..
+Decl: Function -> fcvt
+Got func decl..
+Decl: Function -> gcvt
+Got func decl..
+Decl: Function -> qecvt
+Got func decl..
+Decl: Function -> qfcvt
+Got func decl..
+Decl: Function -> qgcvt
+Got func decl..
+Decl: Function -> ecvt_r
+Got func decl..
+Decl: Function -> fcvt_r
+Got func decl..
+Decl: Function -> qecvt_r
+Got func decl..
+Decl: Function -> qfcvt_r
+Got func decl..
+Decl: Function -> mblen
+Got func decl..
+Decl: Function -> mbtowc
+Got func decl..
+Decl: Function -> wctomb
+Got func decl..
+Decl: Function -> mbstowcs
+Got func decl..
+Decl: Function -> wcstombs
+Got func decl..
+Decl: Function -> rpmatch
+Got func decl..
+Decl: Function -> getsubopt
+Got func decl..
+Decl: Function -> getloadavg
+Got func decl..
+Decl: Function -> memcpy
+Got func decl..
+Decl: Function -> memmove
+Got func decl..
+Decl: Function -> memccpy
+Got func decl..
+Decl: Function -> memset
+Got func decl..
+Decl: Function -> memcmp
+Got func decl..
+Decl: Function -> memchr
+Got func decl..
+Decl: Function -> strcpy
+Got func decl..
+Decl: Function -> strncpy
+Got func decl..
+Decl: Function -> strcat
+Got func decl..
+Decl: Function -> strncat
+Got func decl..
+Decl: Function -> strcmp
+Got func decl..
+Decl: Function -> strncmp
+Got func decl..
+Decl: Function -> strcoll
+Got func decl..
+Decl: Function -> strxfrm
+Got func decl..
+Decl: Record -> __locale_struct
+Decl: Typedef -> __locale_t
+Decl: Typedef -> locale_t
+Decl: Function -> strcoll_l
+Got func decl..
+Decl: Function -> strxfrm_l
+Got func decl..
+Decl: Function -> strdup
+Got func decl..
+Decl: Function -> strndup
+Got func decl..
+Decl: Function -> strchr
+Got func decl..
+Decl: Function -> strrchr
+Got func decl..
+Decl: Function -> strcspn
+Got func decl..
+Decl: Function -> strspn
+Got func decl..
+Decl: Function -> strpbrk
+Got func decl..
+Decl: Function -> strstr
+Got func decl..
+Decl: Function -> strtok
+Got func decl..
+Decl: Function -> __strtok_r
+Got func decl..
+Decl: Function -> strtok_r
+Got func decl..
+Decl: Function -> strlen
+Got func decl..
+Decl: Function -> strnlen
+Got func decl..
+Decl: Function -> strerror
+Got func decl..
+Decl: Function -> strerror_r
+Got func decl..
+Decl: Function -> strerror_l
+Got func decl..
+Decl: Function -> __bzero
+Got func decl..
+Decl: Function -> bcopy
+Got func decl..
+Decl: Function -> bzero
+Got func decl..
+Decl: Function -> bcmp
+Got func decl..
+Decl: Function -> index
+Got func decl..
+Decl: Function -> rindex
+Got func decl..
+Decl: Function -> ffs
+Got func decl..
+Decl: Function -> strcasecmp
+Got func decl..
+Decl: Function -> strncasecmp
+Got func decl..
+Decl: Function -> strsep
+Got func decl..
+Decl: Function -> strsignal
+Got func decl..
+Decl: Function -> __stpcpy
+Got func decl..
+Decl: Function -> stpcpy
+Got func decl..
+Decl: Function -> __stpncpy
+Got func decl..
+Decl: Function -> stpncpy
+Got func decl..
+Decl: Function -> main
+Got func decl..
+body = 0x203b4a8CompoundStmt
+-> DeclStmt
+-> -> ImplicitCastExpr
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> IntegerLiteral
+-> BinaryOperator
+-> -> DeclRefExpr
+-> -> ImplicitCastExpr
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> ImplicitCastExpr
+-> -> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> IntegerLiteral
+-> DeclStmt
+-> -> CStyleCastExpr
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> IntegerLiteral
+-> DeclStmt
+-> -> CStyleCastExpr
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> ImplicitCastExpr
+-> -> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> IntegerLiteral
+-> IfStmt
+-> -> UnaryOperator
+-> -> -> ImplicitCastExpr
+-> -> -> -> DeclRefExpr
+-> -> CompoundStmt
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> ImplicitCastExpr
+-> -> -> -> -> -> DeclRefExpr
+-> DeclStmt
+-> -> ImplicitCastExpr
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> IntegerLiteral
+-> DeclStmt
+-> -> ImplicitCastExpr
+-> -> -> DeclRefExpr
+-> BinaryOperator
+-> -> DeclRefExpr
+-> -> ImplicitCastExpr
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> ImplicitCastExpr
+-> -> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> IntegerLiteral
+-> IfStmt
+-> -> UnaryOperator
+-> -> -> ImplicitCastExpr
+-> -> -> -> DeclRefExpr
+-> -> CompoundStmt
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> ImplicitCastExpr
+-> -> -> -> -> -> DeclRefExpr
+-> DeclStmt
+-> -> ImplicitCastExpr
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> IntegerLiteral
+-> IfStmt
+-> -> CallExpr
+-> -> -> ImplicitCastExpr
+-> -> -> -> DeclRefExpr
+-> -> -> ImplicitCastExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> ImplicitCastExpr
+-> -> -> -> IntegerLiteral
+-> -> CompoundStmt
+-> -> -> CallExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> ImplicitCastExpr
+-> -> -> -> -> -> DeclRefExpr
+-> DeclStmt
+-> -> InitListExpr
+-> -> -> IntegerLiteral
+-> -> -> IntegerLiteral
+-> -> IntegerLiteral
+-> CallExpr
+-> -> ImplicitCastExpr
+-> -> -> DeclRefExpr
+-> -> ImplicitCastExpr
+-> -> -> ImplicitCastExpr
+-> -> -> -> DeclRefExpr
+-> -> IntegerLiteral
+-> -> ImplicitCastExpr
+-> -> -> IntegerLiteral
+-> CallExpr
+-> -> ImplicitCastExpr
+-> -> -> DeclRefExpr
+-> -> ImplicitCastExpr
+-> -> -> ImplicitCastExpr
+-> -> -> -> StringLiteral
+-> -> ImplicitCastExpr
+-> -> -> ArraySubscriptExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> IntegerLiteral
+-> -> ImplicitCastExpr
+-> -> -> ArraySubscriptExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> IntegerLiteral
+-> -> ImplicitCastExpr
+-> -> -> DeclRefExpr
+-> DeclStmt
+-> -> InitListExpr
+-> -> -> IntegerLiteral
+-> -> -> IntegerLiteral
+-> -> IntegerLiteral
+-> CallExpr
+-> -> ImplicitCastExpr
+-> -> -> DeclRefExpr
+-> -> ImplicitCastExpr
+-> -> -> UnaryOperator
+-> -> -> -> DeclRefExpr
+-> -> IntegerLiteral
+-> -> ImplicitCastExpr
+-> -> -> IntegerLiteral
+-> CallExpr
+-> -> ImplicitCastExpr
+-> -> -> DeclRefExpr
+-> -> ImplicitCastExpr
+-> -> -> ImplicitCastExpr
+-> -> -> -> StringLiteral
+-> -> ImplicitCastExpr
+-> -> -> DeclRefExpr
+-> -> ImplicitCastExpr
+-> -> -> ArraySubscriptExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> IntegerLiteral
+-> -> ImplicitCastExpr
+-> -> -> ArraySubscriptExpr
+-> -> -> -> ImplicitCastExpr
+-> -> -> -> -> DeclRefExpr
+-> -> -> -> IntegerLiteral
+-> ReturnStmt
+-> -> IntegerLiteral

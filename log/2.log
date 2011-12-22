@@ -1,0 +1,6 @@
+clang -cc1 -load ./ReallocVerifier.so -plugin realloc-verifier \
+	-resource-dir /usr/bin/../lib/clang/3.0 -fmodule-cache-path /var/tmp/clang-module-cache -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/clang/3.0/include -internal-externc-isystem /usr/include -ferror-limit 19 -fmessage-length 76 -fgnu-runtime /home/vk/projects/misc-c++/static-analysis/test/mem-corrupt.c
+
+On line 8, the original contents of buf may be leaked.
+On line 20, the original contents of buf3 may be leaked.
+On line 27, the value returned by realloc() may be leaked.

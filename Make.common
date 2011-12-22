@@ -1,0 +1,4 @@
+CLANG = /home/vk/opt/llvm3-build/llvm-3.0.src/Release/bin/clang
+
+LLVMCC1 = -resource-dir /usr/bin/../lib/clang/3.0 -fmodule-cache-path /var/tmp/clang-module-cache -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/clang/3.0/include -internal-externc-isystem /usr/include -ferror-limit 19 -fmessage-length 76 -fgnu-runtime
+
