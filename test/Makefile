@@ -11,9 +11,9 @@ CXXFLAGS = -std=c++0x -Wall -Wextra `llvm-config --cxxflags`
 ReallocVerifier.so: ReallocVerifier.o
 ReallocVerifier.o: ReallocVerifier.cpp
 
-ReallocVerifier.test:
+test:
 	clang -cc1 -load ./ReallocVerifier.so -plugin realloc-verifier \
-		$(LLVMCC1) test/mem-corrupt.c
+		$(LLVMCC1) mem-corrupt.c
 
 clean:
 	rm -f *.so *.o
