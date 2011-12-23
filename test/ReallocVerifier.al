@@ -44,6 +44,4 @@ FunctionDecl |>
 FunctionDecl -> DeclStmt -> CastExpr -> CallExpr
 
 # === Alternate approach ===
-# Build a DSL within C++.
-
-auto asgn = Stmt<BinaryOperator>
+# Use scheme.
