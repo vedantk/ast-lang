@@ -1,15 +1,11 @@
 (load "../astl.scm")
 
 (def matcher
-  (catch (FunctionDecl fdecl)
-    (check-func (: fdecl getBody))))
-
-(def (check-func body)
-  (walk body
-    (DeclStmt check-decl)
-    (BinaryOperator check-asgn)
-    (CallExpr fail-on-realloc)
-    (else check-func)))
+  (:> FunctionDecl
+    (walk-body
+      (DeclStmt check-decl)
+      (BinaryOperator check-asgn)
+      (CallExpr fail-on-realloc))))
 
 (def (check-decl decl)
   (let* ((sub-cast (cast (child decl) CastExpr))
@@ -41,7 +37,7 @@
 
 (def (get-target-buf sub-cast)
   (let* ((call (get-realloc (cast (child sub-cast) CallExpr)))
-     (wrap-cast (cast (: 0 => call getArg) CastExpr))
+         (wrap-cast (cast (: 0 => call getArg) CastExpr))
          (last-cast (cast (child wrap-cast) CastExpr)))
     (cast (child last-cast) DeclRefExpr)))
 
