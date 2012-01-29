@@ -34,22 +34,24 @@
 (define-syntax defn
   (syntax-rules ()
     [(_ name args . body)
-     (define name
-       (lambda args . body))
-     
-     (apply name (map quote args))]))
+     (begin
+       ; XXX: Generate actual function prototype, body.
+       (apply (lambda args . body) (map genvar 'args))
+       (define name
+         (lambda args
+           (format "~a(~a);" (sym:scheme->c 'name) (string-join args ", ")))))]))
 
 (define-syntax catch
   (syntax-rules (->)
-    [(_ (type var) -> func arg)
+    [(_ (type var) func -> arg)
      (lambda (msg)
        (case msg
          ['catch-var 'var]
          ['catch-type 'type]
          ['catch-body
           (lambda ()
-            (let ((obj arg))
-              (format "~a(~a);" (sym:scheme->c 'func) obj)))]))]))
+            (let ((obj ((lambda (var) arg) 'var)))
+              (printf "~a(~a);~n" (sym:scheme->c 'func) obj)))]))]))
 
 (define-syntax :
   (syntax-rules (=>)
@@ -71,7 +73,7 @@
 (define-syntax walk
   (syntax-rules ()
     [(_ body (type dispatcher) ...)
-     (emit (format "if ("
+     (emit (format "if (")
            (format "~a ~a" 'type 'dispatcher) ...)]))
 
 (define (emit-ast-consumer consumer-class matcher)
@@ -89,13 +91,14 @@
         "    for (auto i=DG.begin(), e=DG.end(); i != e; ++i) {"
 (format "      if (auto ~a = dyn_cast_or_null<~a>(*i)) {" (matcher 'catch-var) (matcher 'catch-type))
         "        /***/")
-  ((matcher 'catch-body) (matcher 'catch-var))
+  ((matcher 'catch-body))
   (emit "        /***/"
         "      }"
         "    }"
         "    #undef BADRETURN"
         "  }"
-        "};"))
+        "};"
+        ""))
 
 (define (emit-action action-class consumer-class)
   (emit (format "class ~a : public PuglinASTAction {" action-class)
@@ -110,7 +113,7 @@
         "};"
         ""))
 
-(define (emit-registration name desc)
+(define (emit-registration action-class name desc)
   (emit (format "static FrontendPluginRegistry::Add<~a>" action-class)
         (format "X(\"~a\", \"~a\");" name desc)
         ""))
@@ -121,7 +124,7 @@
 (define (sym:scheme->c sym)
   (str:scheme->c (symbol->string sym)))
 
-(define (genvar)
+(define (genvar . _)
   (sym:scheme->c (gensym)))
   
 (define (plugin name desc matcher)
@@ -131,4 +134,4 @@
   (emit-ast-consumer consumer-class matcher)
   (define action-class (string-append "Action_" name-prefix))
   (emit-action action-class consumer-class)
-  (emit-registration name desc))
+  (emit-registration action-class name desc))
