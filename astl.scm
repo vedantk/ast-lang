@@ -8,25 +8,16 @@
     [(_ var . body)
      (define var . body)]))
 
-(define-syntax def-storage
-  (syntax-rules ()
-    [(_ name (arg ...))
-     (define name
-       (lambda (arg ...)
-         (let ((table (make-hash)))
-           (hash-set! table (quote arg) arg)
-           ...
-           (lambda (msg)
-              (hash-ref table msg)))))]))
-
-(def-storage :> (match-type type-dispatcher))
-
 (define-syntax catch
   (syntax-rules ()
-    [(_ (type var-name) . body)
-     (lambda (
-        
-     
+    [(_ (type var) . body)
+     (lambda (msg)
+       (case msg
+         ['catch-var 'var]
+         ['catch-type 'type]
+         ['catch-body
+          (lambda () . body)]
+         [else 'error]))]))
 
 (define (emit . lines)
   (map displayln lines))
@@ -47,7 +38,7 @@
         "using namespace llvm;"
         "using namespace clang;"))
 
-(define (emit-ast-consumer consumer-class)
+(define (emit-ast-consumer consumer-class matcher)
   (emit (string-append "class " consumer-class " : public ASTConsumer {")
         "private:"
         "  SourceManager* sm;"
@@ -59,15 +50,27 @@
         ""
         "  virtual void HandleTopLevelDecl(DeclGroupRef DG) {"
         "    for (auto i=DG.begin(), e=DG.end(); i != e; ++i) {"
-        "
+(format "      if (auto ~a = dyn_cast_or_null<~a>(*i)) {" (matcher 'catch-var) (matcher 'catch-type))
+        "        /***/"
+        ((matcher 'catch-body))
+        "        /***/"
+        "      }"
+        "    }"
+        "  }"
         "};"))
-        
 
+(define (str:scheme->c str)
+  (string-titlecase (list->string (filter char-alphabetic? (string->list str)))))
 
-
+(define (sym:scheme->c sym)
+  (str:scheme->c (symbol->string sym)))
+  
 (define (plugin name desc matcher)
   (emit-header name)
   (emit-boilerplate)
-  (define consumer-class "MyConsumer")
+  
+  (define consumer-class (string-append "Consumer_" (str:scheme->c name)))
+  (emit-ast-consumer consumer-class matcher)
+  
   
   'ok)
