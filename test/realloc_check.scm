@@ -1,8 +1,8 @@
 (load "../astl.scm")
 
-(def matcher
+(define matcher
   (catch (FunctionDecl fdecl)
-    (check-func (: fdecl getBody))))
+    check-func -> (: fdecl getBody)))
 
 (def (check-func body)
   (walk body

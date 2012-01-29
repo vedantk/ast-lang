@@ -3,40 +3,11 @@
 
 #lang racket
 
-(provide def catch :)
-
-(define-syntax def
-  (syntax-rules ()
-    [(_ var . body)
-     (define var . body)]))
-
-(define-syntax catch
-  (syntax-rules ()
-    [(_ (type var) . body)
-     (lambda (msg)
-       (case msg
-         ['catch-var 'var]
-         ['catch-type 'type]
-         ['catch-body
-          (lambda (var) . body)]))]))
-
-(define-syntax :
-  (syntax-rules (=>)
-    [(_ obj field)
-     (let ((var (genvar)))
-       (emit (format "auto ~a = ~a->~a;" var obj field)
-             (format "if (NULL == ~a) { return NULL; }" var))
-       var)]
-    [(_ call => idx)
-     (let ((var (genvar)))
-       (emit (format "auto ~a = ~a->getArg(~a);" var call idx)
-             (format "if (NULL == ~a) { return NULL; }" var))
-       var)]
-    [(_ obj field ...)
-     (foldl (lambda (field var)
-              (: var field))
-            obj
-            (list field ...))]))
+(provide defn
+         catch
+         :
+         walk
+         plugin)
 
 (define (emit . lines)
   (map displayln lines))
@@ -55,10 +26,56 @@
         ""
         "using namespace std;"
         "using namespace llvm;"
-        "using namespace clang;"))
+        "using namespace clang;"
+        ""))
+
+(emit-boilerplate)
+
+(define-syntax defn
+  (syntax-rules ()
+    [(_ name args . body)
+     (define name
+       (lambda args . body))
+     
+     (apply name (map quote args))]))
+
+(define-syntax catch
+  (syntax-rules (->)
+    [(_ (type var) -> func arg)
+     (lambda (msg)
+       (case msg
+         ['catch-var 'var]
+         ['catch-type 'type]
+         ['catch-body
+          (lambda ()
+            (let ((obj arg))
+              (format "~a(~a);" (sym:scheme->c 'func) obj)))]))]))
+
+(define-syntax :
+  (syntax-rules (=>)
+    [(_ obj field)
+     (let ((var (genvar)))
+       (emit (format "auto ~a = ~a->~a();" var obj 'field)
+             (format "if (NULL == ~a) { BAD_RETURN(); }" var))
+       var)]
+    [(_ call => idx)
+     (let ((var (genvar)))
+       (emit (format "auto ~a = ~a->getArg(~a);" var 'call idx)
+             (format "if (NULL == ~a) { BAD_RETURN(); }" var))
+       var)]
+    [(_ obj . fields)
+     (foldl (lambda (field var)
+              (: var field))
+            obj fields)]))
+
+(define-syntax walk
+  (syntax-rules ()
+    [(_ body (type dispatcher) ...)
+     (emit (format "if ("
+           (format "~a ~a" 'type 'dispatcher) ...)]))
 
 (define (emit-ast-consumer consumer-class matcher)
-  (emit (string-append "class " consumer-class " : public ASTConsumer {")
+  (emit (format "class ~a : public ASTConsumer {" consumer-class)
         "private:"
         "  SourceManager* sm;"
         ""
@@ -68,15 +85,35 @@
         "  }"
         ""
         "  virtual void HandleTopLevelDecl(DeclGroupRef DG) {"
+        "    #define BADRETURN { return; }"
         "    for (auto i=DG.begin(), e=DG.end(); i != e; ++i) {"
 (format "      if (auto ~a = dyn_cast_or_null<~a>(*i)) {" (matcher 'catch-var) (matcher 'catch-type))
-        "        /***/"
-        ((matcher 'catch-body) (matcher 'catch-var))
-        "        /***/"
+        "        /***/")
+  ((matcher 'catch-body) (matcher 'catch-var))
+  (emit "        /***/"
         "      }"
         "    }"
+        "    #undef BADRETURN"
         "  }"
         "};"))
+
+(define (emit-action action-class consumer-class)
+  (emit (format "class ~a : public PuglinASTAction {" action-class)
+        "protected:"
+        "  ASTConsumer* CreateASTConsumer(CompilerInstance&, StringRef) {"
+(format "    return new ~a();" consumer-class)
+        "  }"
+        ""
+        "  bool ParseArgs(const CompilerInstance&, const vector<string>&) {"
+        "    return true;"
+        "  }"
+        "};"
+        ""))
+
+(define (emit-registration name desc)
+  (emit (format "static FrontendPluginRegistry::Add<~a>" action-class)
+        (format "X(\"~a\", \"~a\");" name desc)
+        ""))
 
 (define (str:scheme->c str)
   (string-titlecase (list->string (filter char-alphabetic? (string->list str)))))
@@ -89,10 +126,9 @@
   
 (define (plugin name desc matcher)
   (emit-header name)
-  (emit-boilerplate)
-  (define consumer-class
-    (string-append "Consumer_" (str:scheme->c name)))
+  (define name-prefix (str:scheme->c name))
+  (define consumer-class (string-append "Consumer_" name-prefix))
   (emit-ast-consumer consumer-class matcher)
-  
-  
-  'ok)
+  (define action-class (string-append "Action_" name-prefix))
+  (emit-action action-class consumer-class)
+  (emit-registration name desc))
