@@ -54,7 +54,7 @@
               (printf "~a(~a);~n" (sym:scheme->c 'func) obj)))]))]))
 
 (define-syntax :
-  (syntax-rules (=>)
+  (syntax-rules (=> >>)
     [(_ obj field)
      (let ((var (genvar)))
        (emit (format "auto ~a = ~a->~a();" var obj 'field)
@@ -68,7 +68,7 @@
     [(_ obj . fields)
      (foldl (lambda (field var)
               (: var field))
-            obj fields)]))
+            obj 'fields)]))
 
 (define-syntax walk
   (syntax-rules ()
@@ -119,7 +119,9 @@
         ""))
 
 (define (str:scheme->c str)
-  (string-titlecase (list->string (filter char-alphabetic? (string->list str)))))
+  (string-titlecase (list->string
+    (filter (lambda (c) (or (char-alphabetic? c) (char-numeric? c)))
+            (string->list str)))))
 
 (define (sym:scheme->c sym)
   (str:scheme->c (symbol->string sym)))
