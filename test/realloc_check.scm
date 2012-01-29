@@ -16,7 +16,7 @@
          (target-buf (get-target-buf sub-cast)))
     (check-for-leak
       (: target-buf getFoundDecl)
-      (cast (: decl getSingleDecl) NamedDecl) 
+      (cast (: decl getSingleDecl) NamedDecl)
       (: target-buf getLocation))))
 
 (def (check-asgn asgn)
@@ -41,7 +41,7 @@
 
 (def (get-target-buf sub-cast)
   (let* ((call (get-realloc (cast (child sub-cast) CallExpr)))
-         (wrap-cast (cast (: 0 => call getArg) CastExpr))
+         (wrap-cast (cast (: call => 0) CastExpr))
          (last-cast (cast (child wrap-cast) CastExpr)))
     (cast (child last-cast) DeclRefExpr)))
 

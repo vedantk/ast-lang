@@ -1,2 +1,5 @@
 *.o
 *.so
+
+compiled
+test.scm

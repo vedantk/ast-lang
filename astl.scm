@@ -3,6 +3,8 @@
 
 #lang racket
 
+(provide def catch :)
+
 (define-syntax def
   (syntax-rules ()
     [(_ var . body)
@@ -16,16 +18,33 @@
          ['catch-var 'var]
          ['catch-type 'type]
          ['catch-body
-          (lambda () . body)]
-         [else 'error]))]))
+          (lambda (var) . body)]))]))
+
+(define-syntax :
+  (syntax-rules (=>)
+    [(_ obj field)
+     (let ((var (genvar)))
+       (emit (format "auto ~a = ~a->~a;" var obj field)
+             (format "if (NULL == ~a) { return NULL; }" var))
+       var)]
+    [(_ call => idx)
+     (let ((var (genvar)))
+       (emit (format "auto ~a = ~a->getArg(~a);" var call idx)
+             (format "if (NULL == ~a) { return NULL; }" var))
+       var)]
+    [(_ obj field ...)
+     (foldl (lambda (field var)
+              (: var field))
+            obj
+            (list field ...))]))
 
 (define (emit . lines)
   (map displayln lines))
 
 (define (emit-header name)
   (emit "/*"
-        (string-append " * " name)
-        "*/"
+(format " * ~a" name)
+        " */"
         ""))
 
 (define (emit-boilerplate)
@@ -52,7 +71,7 @@
         "    for (auto i=DG.begin(), e=DG.end(); i != e; ++i) {"
 (format "      if (auto ~a = dyn_cast_or_null<~a>(*i)) {" (matcher 'catch-var) (matcher 'catch-type))
         "        /***/"
-        ((matcher 'catch-body))
+        ((matcher 'catch-body) (matcher 'catch-var))
         "        /***/"
         "      }"
         "    }"
@@ -64,12 +83,15 @@
 
 (define (sym:scheme->c sym)
   (str:scheme->c (symbol->string sym)))
+
+(define (genvar)
+  (sym:scheme->c (gensym)))
   
 (define (plugin name desc matcher)
   (emit-header name)
   (emit-boilerplate)
-  
-  (define consumer-class (string-append "Consumer_" (str:scheme->c name)))
+  (define consumer-class
+    (string-append "Consumer_" (str:scheme->c name)))
   (emit-ast-consumer consumer-class matcher)
   
   
