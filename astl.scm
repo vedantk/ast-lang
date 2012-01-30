@@ -7,6 +7,11 @@
          catch
          :
          walk
+         cast
+         child
+         errs
+         line-number
+         ==
          plugin)
 
 (define (emit . lines)
@@ -34,8 +39,15 @@
 (define-syntax defn
   (syntax-rules ()
     [(_ name args . body)
-     (begin
-       ; XXX: Generate actual function prototype, body.
+
+       #|(let ((func-name (sym:scheme->c 'name))
+             (func-args (map genvar 'args)))
+         (emit (format "void* ~a(~a) {" func-name func-args)
+               "  #define BAD_RETURN() { return NULL; }"
+               
+               "  #undef BAD_RETURN"
+               "}"
+               "")|#
        (apply (lambda args . body) (map genvar 'args))
        (define name
          (lambda args
@@ -70,11 +82,49 @@
               (: var field))
             obj 'fields)]))
 
+; XXX
 (define-syntax walk
   (syntax-rules ()
     [(_ body (type dispatcher) ...)
-     (emit (format "if (")
-           (format "~a ~a" 'type 'dispatcher) ...)]))
+     ; (emit "...")
+     (emit (format "auto it = ~a->child_begin();" body)
+           (format "auto stop = ~a->child_end();" body)
+           "for (; it != stop; ++it) {"
+           "  ..."
+           "}")]))
+
+(define-syntax cast
+  (syntax-rules ()
+    [(_ arg type)
+     (let ((var (genvar)))
+       (emit (format "auto ~a = dyn_cast_or_null<~a>(~a);" var 'type arg)
+             (format "if (NULL == ~a) { BAD_RETURN(); }" var))
+       var)]))
+
+(define-syntax child
+  (syntax-rules ()
+    [(_ arg)
+     (let ((var (genvar)))
+       (emit (format "auto ~a = *(~a->child_begin());" var arg)
+             (format "if (NULL == ~a) { BAD_RETURN(); }" var))
+       var)]))
+
+(define-syntax errs
+  (syntax-rules ()
+    [(_ . args)
+     (emit args)]))
+
+(define-syntax line-number
+  (syntax-rules ()
+    [(_ loc)
+     (let ((var (genvar)))
+       (emit (format "~a = ~a.getExpansionLineNumber();" var loc))
+       var)]))
+
+(define-syntax ==
+  (syntax-rules ()
+    [(_ lhs rhs)
+     (emit (format "if (~a != ~a) { BAD_RETURN(); }" lhs rhs))]))
 
 (define (emit-ast-consumer consumer-class matcher)
   (emit (format "class ~a : public ASTConsumer {" consumer-class)
